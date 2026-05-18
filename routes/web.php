@@ -9,7 +9,7 @@ Route::get('/',[SiteController::class, 'index']);
 
 // Login 
 Route::get('/login', [LoginController::class, 'index']);
-
+Route::post('/login', [LoginController::class, 'authenticate']);
 // MVC
 // Model -> Database Interaction (Bando de dados)
 // View -> User Interface (O que o usuário vê, HTML)
