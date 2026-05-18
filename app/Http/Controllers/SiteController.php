@@ -13,9 +13,15 @@ class SiteController extends Controller
             'Meditar',
         ];
 
-        return view('home', [
-            'name' => $name,
-            'habits' => $habits
-        ]);
+        // return view('home', [
+        //     'name' => $name,
+        //     'habits' => $habits
+        // ]);
+        return view('home', compact('name', 'habits'));
+    }
+
+    public function dashboard()
+    {
+        return view('dashboard');
     }
 }
