@@ -1,16 +1,17 @@
 <?php
 
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\Auth\LoginController;
 
 // Site
 Route::get('/',[SiteController::class, 'index'])->name('site.index');
-
-// Login 
 Route::get('/login', [LoginController::class, 'index'])->name('site.login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('site.login');
-// Auth
+Route::get('/cadastro', [RegisterController::class, 'index'])->name('site.register');
+Route::post('/cadastro', [RegisterController::class, 'store'])->name('auth.register');
+
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [SiteController::class, 'dashboard'])->name('site.dashboard');

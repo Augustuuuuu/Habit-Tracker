@@ -31,7 +31,7 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'Campo de e-mail obrigatorio.',
+            'email.required' => 'Campo de e-mail obrigatório.',
             'email.email' => 'O campo de e-mail deve ser um e-mail válido.',
             'password.required' => 'Campo de senha é obrigatório.',
             'password.min'=> 'A senha deve ter no mínimo 6 caracteres.',
