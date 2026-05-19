@@ -1,6 +1,6 @@
 <x-layout>
     <main class="py-10">
-        <section class="bg-white max-w-[600px] mx-auto p-10 border-2 mt-4">
+        <section class="bg-white max-w-150 mx-auto p-10 border-2 mt-4">
             <h1 class="font-bold text-3xl mb-4">
               Faça Login
             </h1>
