@@ -9,7 +9,7 @@
               Insira seus dados para acessar
             </p>
 
-            <form action="{{ route('site.login') }}" method="POST" class="flex flex-col">
+          <form action="{{ route('login') }}" method="POST" class="flex flex-col">
                 @csrf
 
               <div class="flex flex-col gap-2 mb-2">
