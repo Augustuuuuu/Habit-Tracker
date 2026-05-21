@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
@@ -24,7 +23,7 @@ class RegisterController extends Controller
     ]);
         Auth::login($user);
 
-        return redirect()->route('site.dashboard');
+        return redirect()->route('habits.index');
     }
 }
 

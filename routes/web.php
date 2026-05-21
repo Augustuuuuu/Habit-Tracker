@@ -22,16 +22,14 @@ Route::get('/cadastro', [RegisterController::class, 'index'])
 Route::post('/cadastro', [RegisterController::class, 'store'])
     ->name('auth.register');
 
-// Rotas protegidas: apenas usuários autenticados podem acessar o dashboard,
-// gerenciar seus hábitos e realizar logout.
+/*Rotas protegidas: apenas usuários autenticados podem acessar o dashboard, gerenciar seus hábitos e realizar logout.*/
+
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [SiteController::class, 'dashboard'])
-        ->name('site.dashboard');
+    /*    Route::get('/dashboard', [SiteController::class, 'dashboard'])
+            ->name('site.dashboard');*/
 
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('site.logout');
 
-    Route::resource('/dashboard/habits', HabitController::class)
-        ->only(['create', 'store', 'edit', 'update', 'destroy'])
-        ->names('habit');
+    Route::resource('/dashboard/habits', HabitController::class)->except('show');
 });
