@@ -25,7 +25,7 @@ return new class extends Migration {
             $table->date('completed_at');
             $table->timestamps();
 
-            $table->unique(['habit_id', 'completed_at']);
+            $table->unique(['user_id', 'habit_id', 'completed_at']);
         });
     }
 
