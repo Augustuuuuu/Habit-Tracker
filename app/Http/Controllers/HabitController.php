@@ -6,11 +6,13 @@ use App\Http\Requests\HabitRequest;
 use App\Models\Habit;
 use App\Models\HabitLog;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class HabitController extends Controller
 {
+    use AuthorizesRequests;
 
     public function index(): View
     {
@@ -47,6 +49,7 @@ class HabitController extends Controller
      */
     public function edit(Habit $habit)
     {
+        $this->authorize('update', $habit);
         return view('habits.edit', compact('habit'));
     }
 
@@ -55,10 +58,7 @@ class HabitController extends Controller
      */
     public function update(HabitRequest $request, Habit $habit)
     {
-        if ($habit->user_id != Auth::user()->id) {
-            abort(403, 'Esse hábito não é seu!');
-        }
-
+        $this->authorize('update', $habit);
         $habit->update($request->all());
 
         return redirect()
@@ -71,10 +71,7 @@ class HabitController extends Controller
      */
     public function destroy(Habit $habit)
     {
-        // Caso o usuário esteja deletando um hábito de outro usuário apresente esse erro.
-        if ($habit->user_id != Auth::user()->id) {
-            abort(403, 'Esse hábito não é seu!');
-        }
+        $this->authorize('delete', $habit);
 
         $habit->delete();
         // Caso dê tudo certo redireciona ele para o dashboard.
@@ -91,37 +88,28 @@ class HabitController extends Controller
 
     public function toggle(Habit $habit)
     {
-        //1. Verificar usuário autenticado é dono do hábito
-        if ($habit->user_id != Auth::user()->id) {
-            abort(403, 'Esse hábito não é seu!');
-        }
-        //2. Pegar a data de hoje
+        $this->authorize('toggle', $habit);
+        $userId = Auth::id();
         $today = Carbon::today()->toDateString();
 
-        //2.1 Pegar o log
-        $log = HabitLog::query()
+        $deleted = HabitLog::query()
+            ->where('user_id', $userId)
             ->where('habit_id', $habit->id)
             ->where('completed_at', $today)
-            ->first();
-        //3.  Validar se nessa data já existe um registro
-        if ($log) {
-            //4. Se existir, removar o registro
-            $log->delete();
+            ->delete();
+        if ($deleted > 0) {
             $message = 'Hábito desmarcado com sucesso!';
         } else {
-            //5. Se não existir, criar o registro
-            HabitLog::create([
-                'user_id' => Auth::user()->id,
+            HabitLog::query()->createOrFirst([
+                'user_id' => $userId,
                 'habit_id' => $habit->id,
                 'completed_at' => $today
             ]);
+
             $message = 'Hábito concluído!';
         }
-
-
-        //6. Retornar para a página anterior
         return redirect()
-            ->route('habits.index')
+            ->back()
             ->with('success', $message);
     }
 }
