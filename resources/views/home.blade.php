@@ -1,12 +1,7 @@
 <x-layout>
-    <main class="py-10">
-        <p>
-            Bem-vindo ao seu acompanhamento de hábitos!
-        </p>
-        @auth
-            <p>
-                Bem vindo(a), {{ auth()->user()->name }}!
-            </p>
-        @endauth
+  <main class="max-w-5xl mx-auto py-10 px-4">
+    <h1 class="text-4xl font-bold text-center">
+      Veja seus hábitos ganharem vida
+    </h1>
     </main>
 </x-layout>

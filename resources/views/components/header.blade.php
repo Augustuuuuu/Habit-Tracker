@@ -12,7 +12,7 @@
   </div>
     {{--GitHub--}}
 
-    <div>
+    <div class="flex gap-2 items-center">
         @auth
             <!-- Caso o usuário esteja autenticado exibe a opção de logout. -->
             <form  class="inline" action="{{ route('site.logout') }}" method="POST" >
@@ -38,6 +38,11 @@
         </div>
 
       @endguest
+
+
+          <a class="habit-btn habit-shadow-lg p-2" href="https://github.com/augustosaboia/habit-tracker">
+            <x-icons.github/>
+          </a>
     </div>
   </div>
 </header>
