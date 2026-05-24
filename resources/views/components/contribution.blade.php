@@ -1,34 +1,11 @@
-@php use Carbon\Carbon; @endphp
-@props(['habit', 'year' => null])
+@php use App\Models\Habit; @endphp
+@props([
+  'habit',
+   'year' => null])
 @php
-  // Define o ano (padrão: ano atual)
   $selectedYear = $year ?? now()->year;
-
-  // Primeiro e último dia do ano
-  $startDate = Carbon::create($selectedYear, 1, 1); // 01/01/YYYY
-  $endDate = Carbon::create($selectedYear, 12, 31); // 31/12/YYYY
-
-  $weeks = [];
-  $currentWeek = [];
-
-  // Preenche dias vazios no início (se o ano não começar no domingo)
-  $firstDayOfWeek = $startDate->dayOfWeek; // 0 = domingo, 1 = segunda, etc
-  for ($i = 0; $i < $firstDayOfWeek; $i++) {
-    $currentWeek[] = null; // Placeholder vazio
-  }
-
-  // Agrupa os dias em semanas (domingo a sábado)
-  for ($date = $startDate->copy(); $date->lte($endDate); $date->addDay()) {
-    $currentWeek[] = $date->copy();
-
-    // Fecha a semana no sábado ou no último dia
-    if ($date->isSaturday() || $date->eq($endDate)) {
-      $weeks[] = $currentWeek;
-      $currentWeek = [];
-    }
-  }
+  $weeks = Habit::generateYearGrid($selectedYear);
 @endphp
-
 <div class="mb-6">
   {{-- NOME + ANO --}}
   <div class="flex items-center justify-between mb-3">
@@ -47,17 +24,11 @@
         <div class="flex flex-col gap-1">
           @foreach($week as $day)
             @if($day === null)
-              {{-- Espaço vazio para alinhar semanas --}}
+
               <div class="w-3 h-3"></div>
             @else
-              @php
-                // TODO: Verificar se tem log nessa data
-                $hasDone = $habit->habitLogs
-                    ->where('completed_at', $day->toDateString())
-                    ->isNotEmpty();
-              @endphp
               <div class="w-3 h-3 rounded-xs cursor-pointer transition hover:ring-2 hover:ring-blue-400
-                       {{ $hasDone ? 'bg-[#FF7A05]' : 'bg-[#DADFE9]' }}"
+                       {{ $habit->    wasCompletedOn($day) ? 'bg-[#FF7A05]' : 'bg-[#DADFE9]' }}"
                    title="{{ $day->format('d/m/Y') }} - {{ $day->translatedFormat('l') }}"
               ></div>
             @endif
