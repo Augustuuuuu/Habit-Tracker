@@ -1,5 +1,7 @@
-<header class="bg-white border-bottom border-2 flex items-center justify-between p-2">
-    {{--LOGO--}}
+<header class="bg-white border-bottom border-2 ">
+  <div class="max-w-7xl mx-auto flex items-center justify-between p-2">
+
+
   <div class="flex items-center gap-2">
   <a href="{{ route('habits.index') }}" class="habit-btn habit-shadow-lg px-2 py-1 bg-habit-orange">
     HT
@@ -37,4 +39,5 @@
 
       @endguest
     </div>
+  </div>
 </header>
