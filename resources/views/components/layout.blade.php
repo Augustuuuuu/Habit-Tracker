@@ -14,12 +14,16 @@
         rel="stylesheet">
     </head>
 
-    <body class="bg-[#FFEDD6] font-mono">
+    <body class="bg-[#FFEDD6] font-mono relative">
 
         {{-- HEADER --}}
         <x-header/>
         {{ $slot}}
         {{-- FOOTER --}}
         <x-footer/>
+        <x-toast/>
+
+        <script type="module" src="{{ Vite::asset('resources/js/app.js') }}"></script>
+
     </body>
 </html>

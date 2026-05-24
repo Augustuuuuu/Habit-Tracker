@@ -1,16 +1,8 @@
 @php use Carbon\Carbon; @endphp
 <x-layout>
   <main class="max-w-5xl mx-auto py-10 min-h-[calc(100vh-160px)]">
+    {{--NAVBAR--}}
     <x-navbar/>
-
-    @session('success')
-    <div class="flex">
-      <p class="bg-green-100 border-2 border-green-400 text-green-700 p-3 mb-4">
-        {{session('success')}}
-      </p>
-    </div>
-    @endsession
-
     <h2 class="text-xl mt-8 mb-2">
         {{date('d/m/Y')}}
       </h2>
@@ -44,6 +36,5 @@
           </a>
         @endforelse
       </ul>
-    </div>
   </main>
 </x-layout>
