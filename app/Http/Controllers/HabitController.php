@@ -113,9 +113,16 @@ class HabitController extends Controller
             ->with('success', $message);
     }
 
-    public function history(): View
+    public function history(?int $year = null): View
     {
-        $selectedYear = Carbon::now()->year;
+        $currentYear = now()->year;
+        $selectedYear = $year ?? $currentYear;
+        $avaiableYears = $this->availableHistoryYears($currentYear);
+
+        if (!in_array($selectedYear, $avaiableYears)) {
+            abort(404, 'Ano inválido!');
+        }
+
         $startYear = Carbon::create($selectedYear, 1, 1);
         $endYear = Carbon::create($selectedYear, 12, 31, 23, 59, 59);
 
@@ -125,6 +132,16 @@ class HabitController extends Controller
             }])
             ->get();
 
-        return view('habits.history', compact('habits', 'selectedYear'));
+        return view('habits.history', compact('habits', 'selectedYear', 'avaiableYears'));
+    }
+
+    private function availableHistoryYears(int $currentYear): array
+    {
+        $firstYear = HabitLog::query()
+            ->where('user_id', Auth::id())
+            ->selectRaw('YEAR(MIN(completed_at)) as year')
+            ->value('year') ?? $currentYear;
+
+        return range($firstYear, $currentYear);
     }
 }

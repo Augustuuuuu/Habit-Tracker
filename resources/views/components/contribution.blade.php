@@ -8,14 +8,10 @@
 @endphp
 <div class="mb-6">
   {{-- NOME + ANO --}}
-  <div class="flex items-center justify-between mb-3">
     <h2 class="font-bold text-lg">
       {{ $habit->name }}
     </h2>
-    <span class="text-sm text-gray-600 font-semibold">
-      {{ $selectedYear }}
-    </span>
-  </div>
+
 
   {{-- GRID --}}
   <div class="bg-orange-50 p-2 habit-shadow-lg">
@@ -29,8 +25,7 @@
             @else
               <div class="w-3 h-3 rounded-xs cursor-pointer transition hover:ring-2 hover:ring-blue-400
                        {{ $habit->    wasCompletedOn($day) ? 'bg-[#FF7A05]' : 'bg-[#DADFE9]' }}"
-                   title="{{ $day->format('d/m/Y') }} - {{ $day->translatedFormat('l') }}"
-              ></div>
+                   title="{{ $day->format('d/m/Y') }} - {{ $day->translatedFormat('l') }}"></div>
             @endif
           @endforeach
         </div>
