@@ -1,6 +1,5 @@
 @php use Carbon\Carbon; @endphp
 @props(['habit', 'year' => null])
-
 @php
   // Define o ano (padrão: ano atual)
   $selectedYear = $year ?? now()->year;
@@ -53,11 +52,12 @@
             @else
               @php
                 // TODO: Verificar se tem log nessa data
-                // Por enquanto randômico
-                $done = rand(0, 1);
+                $hasDone = $habit->habitLogs
+                    ->where('completed_at', $day->toDateString())
+                    ->isNotEmpty();
               @endphp
               <div class="w-3 h-3 rounded-xs cursor-pointer transition hover:ring-2 hover:ring-blue-400
-                       {{ $done ? 'bg-[#FF7A05]' : 'bg-[#DADFE9]' }}"
+                       {{ $hasDone ? 'bg-[#FF7A05]' : 'bg-[#DADFE9]' }}"
                    title="{{ $day->format('d/m/Y') }} - {{ $day->translatedFormat('l') }}"
               ></div>
             @endif

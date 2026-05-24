@@ -7,7 +7,8 @@
       </a>
     </li>
     <li>
-      <a href="#" class="text-md border-r-2 border-habit-orange pr-2 hover:underline">
+      <a href="{{route('habits.history')}}"
+         class="{{Route::is('habits.history') ? 'font-bold underline' : ''}} text-md border-r-2 border-habit-orange pr-2 hover:underline">
         Histórico
       </a>
     </li>

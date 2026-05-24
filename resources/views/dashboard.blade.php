@@ -1,6 +1,6 @@
 @php use Carbon\Carbon; @endphp
 <x-layout>
-  <main class="max-w-7xl mx-auto py-10 min-h-[calc(100vh-160px)]">
+  <main class="max-w-5xl mx-auto py-10 min-h-[calc(100vh-160px)]">
     <x-navbar/>
 
     @session('success')
@@ -11,20 +11,7 @@
     </div>
     @endsession
 
-    <div>
-      @forelse($habits as $habit)
-        <x-contribution :habit="$habit"/>
-      @empty
-        <div>
-          <p class="text-black">
-            Nenhum hábito para exibir histórico.
-          </p>
-          <a href="{{ route('habits.create') }}" class="underline ">
-            Crie um novo hábito
-          </a>
-        </div>
-      @endforelse
-      <h2 class="text-xl mt-8 mb-2">
+    <h2 class="text-xl mt-8 mb-2">
         {{date('d/m/Y')}}
       </h2>
 
