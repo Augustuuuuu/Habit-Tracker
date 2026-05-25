@@ -97,7 +97,7 @@
 
               <p class="text-center mt-4">
                 Já tem uma conta?
-                <a href="{{route('login')}}" class="underline hover:opacity-50 transition">
+                <a href="{{route('site.login')}}" class="underline hover:opacity-50 transition">
                   Faça login
                 </a>
               </p>

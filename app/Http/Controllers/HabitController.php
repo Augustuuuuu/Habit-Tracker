@@ -20,7 +20,7 @@ class HabitController extends Controller
             ->with('habitLogs')
             ->get();
 
-        return view('/dashboard', compact('habits'));
+        return view('dashboard', compact('habits'));
     }
     /**
      * Store a newly created resource in storage.

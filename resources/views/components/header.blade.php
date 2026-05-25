@@ -3,10 +3,11 @@
 
 
   <div class="flex items-center gap-2">
-  <a href="{{ route('habits.index') }}" class="habit-btn habit-shadow-lg px-2 py-1 bg-habit-orange">
+    <a href="{{ auth()->check() ? route('habits.index') : route('site.login') }}"
+       class="habit-btn habit-shadow-lg px-2 py-1 bg-habit-orange">
     HT
   </a>
-    <p>
+    <p class="font-bold">
       Habit Tracker
     </p>
   </div>
