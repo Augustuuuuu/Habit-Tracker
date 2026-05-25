@@ -1,9 +1,12 @@
 <x-layout>
-  <main class="max-w-5xl mx-auto py-10 min-h-[calc(100vh-160px)]">
+  <main class="max-w-5xl mx-auto py-10 px-4 min-h-[80vh] w-full">
 
     {{--nAVBAR--}}
 
     <x-navbar/>
+    <x-title>
+      Histórico
+    </x-title>
 
 
     {{--YEAR SELECTION--}}
@@ -34,5 +37,4 @@
     @endforelse
 
   </main>
-  >
 </x-layout>

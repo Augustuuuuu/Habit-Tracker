@@ -1,7 +1,6 @@
 <x-layout>
-  <main class="py-10 min-h-[calc(100vh-160px)]">
+  <main class="max-w-5xl mx-auto py-10 px-4 min-h-[80vh] w-full">
     <x-navbar/>
-
     @session('success')
     <div class="flex">
       <p class="bg-green-100 border-2 border-green-400 text-green-700 p-3 mb-4">
@@ -10,31 +9,32 @@
     </div>
     @endsession
 
-    <div>
-      <h2 class="text-xl mt-8 mb-2">
+
+    <x-title>
         Configurar Hábitos
-      </h2>
-      <ul class="flex flex-col gap-2">
+    </x-title>
+
+    <ul class="flex flex-col gap-2 mt-2">
         @forelse($habits as $item)
-          <li class="habit-shadow-lg p-2 bg-[#FFDAAC]">
-            <div class="flex gap-2 items-center">
+        <li class="flex gap-2 items-center justify-between w-full">
+          <div class="habit-shadow-lg p-2 bg-[#FFDAAC] w-full">
               <p class="font-bold text-l">
                 {{ $item->name }}
               </p>
-
+          </div>
               <a href="{{ route('habits.edit', $item) }}"
-                 class="bg-white text-white p-1 hover:opacity-50 cursor-pointer">
+                 class="bg-white habit-shadow-lg text-white p-2 hover:opacity-50 cursor-pointer">
                 <x-icons.edit/>
               </a>
               <form action="{{route('habits.destroy', $item)}}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-red-500 text-white p-1 hover:opacity-50 cursor-pointer">
+                <button type="submit" class="bg-red-500 habit-shadow-lg text-white p-2 hover:opacity-50 cursor-pointer">
                   <x-icons.trash/>
                 </button>
               </form>
-            </div>
-          </li>
+
+        </li>
 
         @empty
           <p>
@@ -45,7 +45,7 @@
           </a>
         @endforelse
       </ul>
-    </div>
+
   </main>
 </x-layout>
 

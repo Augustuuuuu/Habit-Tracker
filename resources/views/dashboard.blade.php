@@ -4,9 +4,10 @@
     {{--NAVBAR--}}
     <x-navbar/>
     <div class="flex flex-col gap-4 items-start">
-      <h2 class="text-xl mt-8 font-bold">
-        {{Carbon::now()->locale('pt_BR')->translatedFormat('l, d \d\e F')}}
-      </h2>
+      <x-title>
+        {{ Carbon::now()->locale('pt_BR')->translatedFormat('l, d \d\e F') }}
+      </x-title>
+
 
       <ul class="flex flex-col gap-2 w-full">
         @forelse($habits as $item)
